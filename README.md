@@ -10,5 +10,7 @@ https://www.softportal.com/get-48607-open-server.html
 
 После этого запустить сервер и в дополнительно открыть панель PhpMyAdmin (либо пройти по ссылке "http://127.0.0.1/openserver/phpmyadmin/index.php")
 По умолчанию:
+
 Логин: root
+
 Пароль: <Нету>
