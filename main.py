@@ -1,20 +1,24 @@
-HOST = '127.0.0.1'
-USER = 'root'
-PASS = ''
-DB_NAME = 'coursework_db'
-PORT = 3306
+from form_main import Ui_FormMainMenu
+from PyQt5 import QtCore, QtGui, QtWidgets
+import sys
+from db_connecter import TMyDB
+from constants import *
 
-import pymysql
+if __name__ == "__main__":
 
-try:
-    connection = pymysql.connect(
-        host=HOST,
-        port=PORT,
-        user=USER,
-        password=PASS,
-        database=DB_NAME,
-        cursorclass=pymysql.cursors.DictCursor
-    )
-    print('WIN!!!!')
-except Exception as ex:
-    print(f'Error! : {ex}')
+    '''
+    Connect with DaatBase
+    '''
+    DB = TMyDB(HOST, PORT, USER, PASS, DB_NAME)
+
+
+    '''
+    Create application and start-window
+    '''
+    app = QtWidgets.QApplication(sys.argv)
+    Widget = QtWidgets.QWidget()
+    ui = Ui_FormMainMenu(DB)
+    ui.setupUi(Widget)
+    Widget.show()
+    sys.exit(app.exec_())
+    
