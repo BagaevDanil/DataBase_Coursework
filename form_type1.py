@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from style import *
+from constants import *
 
 class Ui_FormType1(object):
     windowTitle = 'CommonForm'
@@ -66,43 +67,28 @@ class Ui_FormType1(object):
         keys = []
         if rows:
             keys = rows[0].keys()
-        
-        # rows = self.getRowsForUpdateTable(idRoute)
-        '''
-                lineEdit = QtWidgets.QTextBrowser(self.scrollAreaWidgetContents)
-                lineEdit.setText(str(val))
-                lineEdit.setMinimumSize(QtCore.QSize(0, 80))
-                lineEdit.setMaximumSize(QtCore.QSize(1000, 80))
-                -----
-                lineEdit = QtWidgets.QLineEdit(self.scrollAreaWidgetContents)
-                lineEdit.setText(str(val))
-                lineEdit.setMinimumSize(QtCore.QSize(0, 25))
-        '''
 
         for row in rows:
             horizontalLayout = QtWidgets.QHBoxLayout()
-
             for key in keys:
                 val = row[key]
                 lineEdit = QtWidgets.QTextBrowser(self.scrollAreaWidgetContents)
                 lineEdit.setText(str(val))
                 lineEdit.setMinimumSize(QtCore.QSize(0, 80))
                 lineEdit.setMaximumSize(QtCore.QSize(1000, 80))
-                font = QtGui.QFont()
-                font.setPointSize(12)
-                lineEdit.setFont(font)
+                lineEdit.setStyleSheet(ITEM_HEAD_AREA_STYLE if rows.index(row) == 0 else  ITEM_AREA_STYLE)
                 horizontalLayout.addWidget(lineEdit)
 
             self.verticalLayout_2.insertLayout(self.verticalLayout_2.count() - 1, horizontalLayout)
 
     def clearTable(self):
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
+        self.verticalLayout_2.setContentsMargins(-1, -1, -1, 9)
+        self.verticalLayout_2.setSpacing(1)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem)
-        
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         
 
@@ -121,12 +107,13 @@ class Ui_FormType1(object):
 
     def createWidget(self, Widget):
         Widget.setObjectName("Widget")
-        Widget.resize(800, 600)
+        Widget.resize(WINDOW_WIDTH, WINDOW_HIEGHT)
 
         self.scrollArea = QtWidgets.QScrollArea(Widget)
-        self.scrollArea.setGeometry(QtCore.QRect(0+3, 0+3, 550-3, 600-3))
+        self.scrollArea.setGeometry(QtCore.QRect(3, 3, SCROLL_WIDTH, WINDOW_HIEGHT - 5))
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
+        
 
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 409, 189))
@@ -134,6 +121,8 @@ class Ui_FormType1(object):
 
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.verticalLayout_2.setContentsMargins(-1, -1, -1, 9)
+        self.verticalLayout_2.setSpacing(1)
 
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -157,20 +146,23 @@ class Ui_FormType1(object):
         self.verticalLayout_2.addItem(spacerItem)
 
         self.pushButton = QtWidgets.QPushButton(Widget)
-        self.pushButton.setGeometry(QtCore.QRect(560, 60, 140, 30))
+        self.pushButton.setGeometry(QtCore.QRect(SCROLL_WIDTH + 20, 60, 140, 30))
         self.pushButton.setObjectName("pushButton")
         self.pushButton.setText('Ок')
+        self.pushButton.setStyleSheet(BUTTON_STYLE)
         
         self.comboBox = QtWidgets.QComboBox(Widget)
-        self.comboBox.setGeometry(QtCore.QRect(560, 20, 200, 30))
+        self.comboBox.setGeometry(QtCore.QRect(SCROLL_WIDTH + 20, 20, 200, 30))
         self.comboBox.setObjectName("comboBox")
+        self.comboBox.setStyleSheet(COMBO_BOX_STYLE)
         self.comboBox.addItem("1")
         self.comboBox.addItem("2")
 
         self.pushButtonBack = QtWidgets.QPushButton(Widget)
-        self.pushButtonBack.setGeometry(QtCore.QRect(720, 550, 60, 30))
+        self.pushButtonBack.setGeometry(QtCore.QRect(WINDOW_WIDTH - 120, 550, 100, 30))
         self.pushButton.setObjectName("pushButtonBack")
         self.pushButtonBack.setText('Назад')
+        self.pushButtonBack.setStyleSheet(BUTTON_STYLE)
         
 
     def retranslateUi(self, Widget):
